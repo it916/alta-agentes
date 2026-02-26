@@ -3,234 +3,297 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Alta de Agente</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <title>Alta de Agente · Hero Insurance USA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f5f2ee;
-      --surface: #ffffff;
-      --primary: #1a1a2e;
-      --accent: #c8783a;
-      --accent2: #e8a96a;
-      --text: #2d2d2d;
-      --muted: #888;
-      --border: #e0d9d0;
-      --success: #3a7d44;
-      --radius: 12px;
+      --cyan:    #19CDEB;
+      --blue:    #0097CC;
+      --royal:   #0065F3;
+      --dark:    #373535;
+      --white:   #FDFDFD;
+      --radius:  14px;
     }
 
     body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: 'Montserrat', sans-serif;
+      background: var(--dark);
       min-height: 100vh;
-      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 0 60px;
     }
 
-    .container {
-      max-width: 680px;
-      margin: 0 auto;
+    /* ── HEADER ── */
+    .hero-header {
+      width: 100%;
+      background: linear-gradient(135deg, var(--royal) 0%, var(--blue) 40%, var(--cyan) 100%);
+      padding: 36px 24px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    header {
-      margin-bottom: 40px;
+    .hero-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.18) 0%, transparent 70%);
     }
 
-    .badge {
-      display: inline-block;
-      background: var(--accent);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 2px;
+    .hero-header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0; right: 0;
+      height: 40px;
+      background: var(--dark);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+
+    .logo-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 900;
+      font-size: clamp(28px, 6vw, 42px);
+      letter-spacing: -3px;
       text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 14px;
+      color: var(--white);
+      position: relative;
+      z-index: 1;
+      line-height: 1;
     }
 
-    h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(28px, 5vw, 40px);
-      color: var(--primary);
-      line-height: 1.15;
-      margin-bottom: 8px;
+    .logo-text span {
+      color: var(--dark);
     }
 
-    header p {
-      color: var(--muted);
-      font-size: 15px;
+    .logo-sub {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      position: relative;
+      z-index: 1;
+      margin-top: 4px;
     }
 
+    .header-tagline {
+      font-size: 13px;
+      color: rgba(255,255,255,0.85);
+      margin-top: 10px;
+      font-style: italic;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── CONTAINER ── */
+    .container {
+      width: 100%;
+      max-width: 600px;
+      padding: 0 20px;
+      margin-top: -20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ── CARD ── */
     .card {
-      background: var(--surface);
+      background: #2a2828;
       border-radius: var(--radius);
-      border: 1px solid var(--border);
+      border: 1px solid rgba(25,205,235,0.15);
       padding: 36px;
-      margin-bottom: 24px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.04);
     }
 
     .card-title {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 24px;
+      color: var(--cyan);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(25,205,235,0.2);
     }
 
     .row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 18px;
+      gap: 16px;
     }
 
-    @media(max-width: 500px) { .row { grid-template-columns: 1fr; } }
+    @media(max-width: 480px) { .row { grid-template-columns: 1fr; } }
 
     .field {
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 8px;
     }
 
     .field.full { grid-column: 1 / -1; }
 
     label {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--primary);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
     }
 
     input {
-      border: 1.5px solid var(--border);
+      border: 1.5px solid rgba(255,255,255,0.1);
       border-radius: 8px;
-      padding: 11px 14px;
+      padding: 12px 16px;
       font-size: 15px;
-      font-family: 'DM Sans', sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--white);
+      background: rgba(255,255,255,0.06);
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
       outline: none;
     }
 
     input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(200,120,58,0.12);
+      border-color: var(--cyan);
+      background: rgba(25,205,235,0.06);
+      box-shadow: 0 0 0 3px rgba(25,205,235,0.12);
     }
 
-    input::placeholder { color: #bbb; }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 13px 28px;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      font-family: 'DM Sans', sans-serif;
-      cursor: pointer;
-      border: none;
-      transition: all 0.2s;
-    }
+    input::placeholder { color: rgba(255,255,255,0.25); }
 
     .btn-primary {
-      background: var(--primary);
-      color: #fff;
-      width: 100%;
+      display: flex;
+      align-items: center;
       justify-content: center;
-      margin-top: 8px;
+      gap: 10px;
+      width: 100%;
+      padding: 15px 28px;
+      margin-top: 10px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      background: linear-gradient(90deg, var(--royal) 0%, var(--blue) 50%, var(--cyan) 100%);
+      color: #fff;
+      transition: all 0.25s;
+      box-shadow: 0 4px 20px rgba(0,151,204,0.35);
     }
 
-    .btn-primary:hover { background: #2d2d50; transform: translateY(-1px); }
-
-    .btn-secondary {
-      background: transparent;
-      border: 1.5px solid var(--border);
-      color: var(--muted);
-      font-size: 13px;
-      padding: 8px 16px;
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,151,204,0.5);
     }
 
-    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
 
+    /* ── TOAST ── */
     .toast {
       display: none;
       align-items: center;
-      gap: 10px;
-      background: var(--success);
+      gap: 12px;
+      background: linear-gradient(90deg, #0065F3, #19CDEB);
       color: #fff;
-      padding: 14px 20px;
-      border-radius: 8px;
-      margin-bottom: 24px;
+      padding: 16px 22px;
+      border-radius: 10px;
+      margin-bottom: 20px;
       font-size: 14px;
-      font-weight: 500;
-      animation: fadeIn 0.3s ease;
+      font-weight: 600;
+      animation: fadeIn 0.35s ease;
+      box-shadow: 0 4px 20px rgba(0,101,243,0.4);
     }
 
     .toast.show { display: flex; }
 
-    @keyframes fadeIn { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
-
-    /* Registro */
-    .registro-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-      gap: 10px;
+    .toast-icon {
+      width: 28px; height: 28px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
     }
 
-    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); display: inline-block; }
+    @keyframes fadeIn {
+      from { opacity:0; transform:translateY(-10px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 28px;
+      text-align: center;
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 1px;
+    }
   </style>
 </head>
 <body>
-<div class="container">
 
-  <header>
-    <div class="badge">IT · Recursos Humanos</div>
-    <h1>Alta de Agente</h1>
-    <p>Solicitud de creación de correo corporativo para nuevo agente.</p>
-  </header>
-
-  <div id="toast" class="toast">
-    <span>✓</span> Solicitud registrada correctamente.
+  <div class="hero-header">
+    <div class="logo-text">Hero <span style="color:var(--cyan)">Insurance</span></div>
+    <div class="logo-sub">USA</div>
+    <div class="header-tagline">"Protegemos lo más valioso"</div>
   </div>
 
-  <div class="card">
-    <div class="card-title">Datos del nuevo agente</div>
-    <div style="display:flex; flex-direction:column; gap:18px;">
-      <div class="row">
-        <div class="field">
-          <label for="nombre">Nombre *</label>
-          <input type="text" id="nombre" placeholder="Ej. Juan" />
-        </div>
-        <div class="field">
-          <label for="apellido">Apellido *</label>
-          <input type="text" id="apellido" placeholder="Ej. Pérez" />
-        </div>
-      </div>
-      <div class="field full">
-        <label for="correo">Correo personal *</label>
-        <input type="email" id="correo" placeholder="juan.perez@gmail.com" />
-      </div>
-      <div class="field full">
-        <label for="telefono">Número de teléfono *</label>
-        <input type="tel" id="telefono" placeholder="Ej. 55 1234 5678" maxlength="20" />
-      </div>
-      <button class="btn btn-primary" onclick="registrar()">
-        <span>＋</span> Enviar solicitud
-      </button>
+  <div class="container">
+
+    <div id="toast" class="toast">
+      <div class="toast-icon">✓</div>
+      <div>¡Solicitud enviada! Nos pondremos en contacto pronto.</div>
     </div>
+
+    <div class="card">
+      <div class="card-title">Alta de nuevo agente</div>
+      <div style="display:flex; flex-direction:column; gap:18px;">
+        <div class="row">
+          <div class="field">
+            <label for="nombre">Nombre *</label>
+            <input type="text" id="nombre" placeholder="Ej. Juan" />
+          </div>
+          <div class="field">
+            <label for="apellido">Apellido *</label>
+            <input type="text" id="apellido" placeholder="Ej. Pérez" />
+          </div>
+        </div>
+        <div class="field full">
+          <label for="correo">Correo personal *</label>
+          <input type="email" id="correo" placeholder="juan.perez@gmail.com" />
+        </div>
+        <div class="field full">
+          <label for="telefono">Número de teléfono *</label>
+          <input type="tel" id="telefono" placeholder="Ej. (786) 323-6818" maxlength="20" />
+        </div>
+        <button class="btn-primary" onclick="registrar()">
+          Enviar solicitud →
+        </button>
+      </div>
+    </div>
+
+    <div class="footer">HERO INSURANCE USA · IT DEPARTMENT</div>
+
   </div>
-
-
-
-</div>
 
 <script>
   // ─────────────────────────────────────────────
@@ -284,6 +347,3 @@
 </script>
 </body>
 </html>
-
-
-
