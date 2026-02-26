@@ -235,7 +235,7 @@
 <script>
   // ─────────────────────────────────────────────
   //  PEGA AQUÍ TU URL DE GOOGLE APPS SCRIPT
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbycfcjnHFfYQWZZI382fjOFPSOR1tAhPt1kh0dah8KYyLkr5ADvlfhlnlwn3xzqcHPE/exec';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxqIUqkXvc0y_axaYf_ZDoMMKRgg5_E7umdGrOtIu30mvw3NQka8_5M_8kXdbqQcumi/exec';
   // ─────────────────────────────────────────────
 
   function registrar() {
@@ -260,18 +260,14 @@
 
     fetch(SCRIPT_URL, {
       method: 'POST',
+      mode: 'no-cors',
       body: JSON.stringify({ nombre, apellido, correo, telefono }),
     })
-    .then(res => res.json())
-    .then(data => {
-      if (data.resultado === 'ok') {
-        ['nombre','apellido','correo','telefono'].forEach(id => document.getElementById(id).value = '');
-        const toast = document.getElementById('toast');
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 3500);
-      } else {
-        alert('El servidor respondió con un error. Intenta de nuevo.');
-      }
+    .then(() => {
+      ['nombre','apellido','correo','telefono'].forEach(id => document.getElementById(id).value = '');
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
     })
     .catch(() => alert('No se pudo conectar. Verifica tu URL o conexión a internet.'))
     .finally(() => {
@@ -282,4 +278,3 @@
 </script>
 </body>
 </html>
-
