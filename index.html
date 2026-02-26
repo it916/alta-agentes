@@ -283,7 +283,7 @@
         </div>
         <div class="field full">
           <label for="telefono">Número de teléfono *</label>
-          <input type="tel" id="telefono" placeholder="Ej. (786) 323-6818" maxlength="20" />
+          <input type="tel" id="telefono" placeholder="(786) 323-6818" maxlength="14" oninput="formatTel(this)" />
         </div>
         <button class="btn-primary" onclick="registrar()">
           Enviar solicitud →
@@ -298,8 +298,23 @@
 <script>
   // ─────────────────────────────────────────────
   //  PEGA AQUÍ TU URL DE GOOGLE APPS SCRIPT
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyLy3FbMx0ppqzGGRXxDLt5zydy1SJtc9wQjwtymO-RkAvD7ugC5vtTTg94MMyYEuKt/exec';
+  const SCRIPT_URL = 'TU_URL_AQUI';
   // ─────────────────────────────────────────────
+
+  function formatTel(input) {
+    let digits = input.value.replace(/\D/g, '').slice(0, 10);
+    let formatted = '';
+    if (digits.length === 0) {
+      formatted = '';
+    } else if (digits.length <= 3) {
+      formatted = '(' + digits;
+    } else if (digits.length <= 6) {
+      formatted = '(' + digits.slice(0,3) + ') ' + digits.slice(3);
+    } else {
+      formatted = '(' + digits.slice(0,3) + ') ' + digits.slice(3,6) + '-' + digits.slice(6);
+    }
+    input.value = formatted;
+  }
 
   function registrar() {
     const nombre   = document.getElementById('nombre').value.trim();
@@ -314,6 +329,13 @@
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
       alert('El correo personal no parece válido.');
+      return;
+    }
+
+    // Validar que el teléfono tenga 10 dígitos
+    const soloDigitos = telefono.replace(/\D/g, '');
+    if (soloDigitos.length !== 10) {
+      alert('Por favor ingresa un número de teléfono válido de 10 dígitos.');
       return;
     }
 
@@ -341,7 +363,7 @@
     .catch(() => alert('No se pudo conectar. Verifica tu URL o conexión a internet.'))
     .finally(() => {
       btn.disabled = false;
-      btn.innerHTML = '<span>＋</span> Enviar solicitud';
+      btn.innerHTML = 'Enviar solicitud →';
     });
   }
 </script>
