@@ -69,6 +69,14 @@
           <label for="telefono">Número de teléfono *</label>
           <input type="tel" id="telefono" placeholder="(786) 323-6818" maxlength="14" oninput="formatTel(this)"/>
         </div>
+        <div class="field full">
+          <label for="solicitante-nombre">Tu nombre (quien hace la solicitud) *</label>
+          <input type="text" id="solicitante-nombre" placeholder="Ej. Ana Martínez"/>
+        </div>
+        <div class="field full">
+          <label for="solicitante-email">Tu correo corporativo *</label>
+          <input type="email" id="solicitante-email" placeholder="amartinez@heroinsuranceusa.com"/>
+        </div>
         <button class="btn-primary" onclick="registrar()">Enviar solicitud →</button>
       </div>
     </div>
@@ -86,13 +94,18 @@
   }
 
   async function registrar() {
-    const nombre   = document.getElementById('nombre').value.trim();
-    const apellido = document.getElementById('apellido').value.trim();
-    const correo   = document.getElementById('correo').value.trim();
-    const telefono = document.getElementById('telefono').value.trim();
+    const nombre              = document.getElementById('nombre').value.trim();
+    const apellido            = document.getElementById('apellido').value.trim();
+    const correo              = document.getElementById('correo').value.trim();
+    const telefono            = document.getElementById('telefono').value.trim();
+    const solicitanteNombre   = document.getElementById('solicitante-nombre').value.trim();
+    const solicitanteEmail    = document.getElementById('solicitante-email').value.trim();
 
-    if (!nombre || !apellido || !correo || !telefono) {
+    if (!nombre || !apellido || !correo || !telefono || !solicitanteNombre || !solicitanteEmail) {
       alert('Por favor completa todos los campos antes de enviar.'); return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(solicitanteEmail)) {
+      alert('El correo del solicitante no parece válido.'); return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
       alert('El correo personal no parece válido.'); return;
@@ -109,11 +122,11 @@
       const resp = await fetch(WORKER_URL + '/alta-agente', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, apellido, correo, telefono })
+        body: JSON.stringify({ nombre, apellido, correo, telefono, solicitanteNombre, solicitanteEmail })
       });
       const result = await resp.json();
       if (!resp.ok) throw new Error(result.error || 'Error del servidor');
-      ['nombre','apellido','correo','telefono'].forEach(id => document.getElementById(id).value = '');
+      ['nombre','apellido','correo','telefono','solicitante-nombre','solicitante-email'].forEach(id => document.getElementById(id).value = '');
       const toast = document.getElementById('toast');
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 3500);
