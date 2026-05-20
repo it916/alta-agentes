@@ -1,0 +1,32 @@
+# Windows
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+
+# Editores / IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos temporales / backups
+*.bak
+*.tmp
+*.log
+
+# Credenciales / secretos (por si acaso)
+.env
+.env.local
+*.pem
+*.key
+
+# OneDrive
+.~lock.*
+
+# Claude Code
+.claude/
